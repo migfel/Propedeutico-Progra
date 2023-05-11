@@ -1,0 +1,36 @@
+Clase TuringMachine:
+    Método __init__(tape, initial_state, final_states, transition_rules):
+        Asignar tape a self.tape
+        Asignar 0 a self.head_position
+        Asignar initial_state a self.current_state
+        Asignar final_states a self.final_states
+        Asignar transition_rules a self.transition_rules
+    
+    Método run():
+        Mientras self.current_state no esté en self.final_states:
+            Asignar self.tape[self.head_position] a symbol
+            Asignar self.transition_rules[self.current_state][symbol] a action
+            
+            Escribir action['write_symbol'] en self.tape[self.head_position]
+            Incrementar self.head_position por action['move']
+            Asignar action['next_state'] a self.current_state
+            
+        Si self.current_state está en self.final_states:
+            Imprimir "Máquina de Turing en estado de aceptación."
+        Sino:
+            Imprimir "Máquina de Turing en estado de rechazo."
+
+
+tape = ['0', '0', '1', '1', '0']
+initial_state = 'q0'
+final_states = ['qf']
+transition_rules = {
+    'q0': {
+        '0': {'write_symbol': '1', 'move': 1, 'next_state': 'q0'},
+        '1': {'write_symbol': '0', 'move': -1, 'next_state': 'qf'}
+    },
+    'qf': {}
+}
+
+tm = TuringMachine(tape, initial_state, final_states, transition_rules)
+tm.run()
